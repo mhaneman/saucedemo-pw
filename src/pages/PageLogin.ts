@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 
-import { InventoryPage } from "./PageInventory";
+import { PageInventory } from "./PageInventory";
 
 export class PageLogin {
   readonly page: Page;
@@ -17,7 +17,7 @@ export class PageLogin {
     this.errorContainer = page.locator('[data-test="error"]');
   }
 
-  async navigateToPage(): Promise<void> {
+  async goto(): Promise<void> {
     await this.page.goto("/");
   }
 
@@ -29,10 +29,10 @@ export class PageLogin {
     await this.passwordInput.fill(password);
   }
 
-  async login(user: string, password: string): Promise<InventoryPage> {
+  async login(user: string, password: string): Promise<PageInventory> {
     await this.usernameInput.fill(user);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
-    return new InventoryPage(this.page);
+    return new PageInventory(this.page);
   }
 }

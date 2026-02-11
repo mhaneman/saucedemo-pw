@@ -1,42 +1,37 @@
-import { expect, test } from "@playwright/test";
-import { PageLogin } from "../../pages/PageLogin";
+import { expect, test } from "../../fixtures";
+import { PageInventory } from "../../pages/PageInventory";
 
-test("verify login page elements are working properly", async ({ page }) => {
-  const loginPage = new PageLogin(page);
-  await loginPage.navigateToPage();
-
+test("verify login page elements are working properly", async ({
+  pageLogin,
+}) => {
   // verify page elements are visible
-  await expect(loginPage.usernameInput).toBeVisible();
-  await expect(loginPage.passwordInput).toBeVisible();
-  await expect(loginPage.loginButton).toBeVisible();
+  await expect(pageLogin.usernameInput).toBeVisible();
+  await expect(pageLogin.passwordInput).toBeVisible();
+  await expect(pageLogin.loginButton).toBeVisible();
 
-  await loginPage.setUsername("standard_user");
-  await loginPage.setPassword("secret_sauce");
+  await pageLogin.setUsername("standard_user");
+  await pageLogin.setPassword("secret_sauce");
 
   // username field checks
-  await expect(loginPage.usernameInput).toHaveValue("standard_user");
+  await expect(pageLogin.usernameInput).toHaveValue("standard_user");
 
   // password field checks
-  await expect(loginPage.passwordInput).toHaveValue("secret_sauce");
-  await expect(loginPage.passwordInput).toHaveAttribute("type", "password");
-  await expect(loginPage.passwordInput).toHaveText("");
+  await expect(pageLogin.passwordInput).toHaveValue("secret_sauce");
+  await expect(pageLogin.passwordInput).toHaveAttribute("type", "password");
+  await expect(pageLogin.passwordInput).toHaveText("");
 });
 
-test("very an unauthorized login", async ({ page }) => {
-  const loginPage = new PageLogin(page);
-  await loginPage.navigateToPage();
-  await loginPage.login("locked_out_user", "secret_sauce");
+test("very an unauthorized login", async ({ pageLogin }) => {
+  await pageLogin.login("locked_out_user", "secret_sauce");
 
-  await expect(loginPage.errorContainer).toBeVisible();
-  await expect(loginPage.errorContainer).toHaveText(
+  await expect(pageLogin.errorContainer).toBeVisible();
+  await expect(pageLogin.errorContainer).toHaveText(
     "Epic sadface: Sorry, this user has been locked out.",
   );
 });
 
-test("very an authorized login", async ({ page }) => {
-  const loginPage = new PageLogin(page);
-  await loginPage.navigateToPage();
-  const inventoryPage = await loginPage.login("standard_user", "secret_sauce");
+test("very an authorized login", async ({ pageLogin }) => {
+  const inventoryPage = await pageLogin.login("standard_user", "secret_sauce");
 
   await expect(inventoryPage.page).toHaveURL(/inventory\.html$/);
   await expect(inventoryPage.page).toHaveTitle(/Swag Labs/);

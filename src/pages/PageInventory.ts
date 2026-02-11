@@ -3,7 +3,7 @@ import { ComponentProduct } from "../components/ComponentProduct";
 import { ComponentFooter } from "../components/ComponentFooter";
 import { ComponentSidebar } from "../components/ComponentSidebar";
 
-export class InventoryPage {
+export class PageInventory {
   readonly page: Page;
   readonly product: ComponentProduct;
   readonly footer: ComponentFooter;
