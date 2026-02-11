@@ -1,4 +1,4 @@
-# Sauce Demo Automation Framework Demo
+# SauceDemo Automation Framework Demo
 
 ## Setup and Installation
 
