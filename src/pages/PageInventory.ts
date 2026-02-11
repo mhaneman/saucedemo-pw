@@ -5,14 +5,21 @@ import { ComponentSidebar } from "../components/ComponentSidebar";
 
 export class PageInventory {
   readonly page: Page;
-  readonly product: ComponentProduct;
+  readonly title: Locator;
+  readonly productsContainer: Locator;
   readonly footer: ComponentFooter;
   readonly sidebar: ComponentSidebar;
 
   constructor(page: Page) {
     this.page = page;
-    this.product = new ComponentProduct(page);
+    this.title = page.locator("h1");
+    this.productsContainer = page.locator(".inventory_lists");
     this.footer = new ComponentFooter(page);
     this.sidebar = new ComponentSidebar(page);
+  }
+
+  async getAllProducts() {
+    const all = await this.productsContainer.all();
+    return all.map((locator) => new ComponentProduct(locator));
   }
 }
