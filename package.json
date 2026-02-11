@@ -4,8 +4,7 @@
   "description": "Websites that are tested using Playwright",
   "main": "index.js",
   "scripts": {
-    "test:saucedemo": "npx playwright test --project=SauceDemo --headed",
-    "test:conduit": "npx playwright test --project=Conduit",
+    "test": "npx playwright test --project=SauceDemo --headed",
     "test:all": "npx playwright test",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write ."
